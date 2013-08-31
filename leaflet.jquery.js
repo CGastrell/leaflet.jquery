@@ -126,9 +126,18 @@
               boundingbox = new L.LatLngBounds(southwest, northeast);
             _this.Lmap.fitBounds( boundingbox);
         },
-        yourOtherFunction: function () {
-
-        
+        zoom: function(level) {
+          this.Lmap.setZoom(level);
+        },
+        center: function(latLng) {
+          this.Lmap.panTo(latLng);
+        },
+        addMarker: function (options) {
+          var _this = this;
+          var defaults = {lat:0,lng:0,html:null,title:null,icon:null};
+          var o = $.extend({},options);
+          var ll = new L.LatLng(o.lat,o.lng);
+          var m = new L.Marker(ll,o).addTo(this.Lmap);
         }
     };
 
@@ -155,4 +164,35 @@
             }
         });
     };
+    $.fn[ 'center' ] = function(lat,lon)
+    {
+      if(!$.isNumeric(lat) || !$.isNumeric(lon)) return;
+      var ll = new L.LatLng(lat,lon);
+      return this.each(function(){
+        var $this = $(this);
+        var a = $this.data('plugin_leaflet');
+        if(!a) return;
+        a.center(ll);
+      });
+    }
+    $.fn[ 'zoom' ] = function(zoomLevel)
+    {
+      return this.each(function(){
+        var $this = $(this);
+        var a = $this.data('plugin_leaflet');
+        if (!a) return;
+        a.zoom(parseInt(zoomLevel));
+      });
+    }
+    $.fn[ 'addMarker' ] = function(opciones)
+    {
+      return this.each(function(){
+        var o = $.extend({},opciones);
+        var $this = $(this);
+        var a = $this.data('plugin_leaflet');
+        if(!a) return;
+        a.addMarker(o);
+      });
+    };
+
 })( jQuery, window, document ); 
