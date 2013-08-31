@@ -488,7 +488,16 @@
           //   .setLatLng(latlng)
           //   .setContent('<p>Hello world!<br />This is a nice popup.</p>')
           //   .openOn(map);
-          if(o.hasOwnProperty('html') && o.html) m.bindPopup(o.html).openPopup();
+          if(o.hasOwnProperty('html') && o.html) {
+            var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+            if(urlPattern.test(o.html))
+            {
+              var html = '<iframe src="'+o.html+'"></iframe>'
+              m.bindPopup(html).openPopup();
+            }else{
+              m.bindPopup(o.html).openPopup();
+            }
+          }
           m.closePopup();
         },
         addKML: function(options) {
