@@ -488,7 +488,8 @@
           //   .setLatLng(latlng)
           //   .setContent('<p>Hello world!<br />This is a nice popup.</p>')
           //   .openOn(map);
-          // m.bindPopup(popupContent).openPopup();
+          if(o.hasOwnProperty('html') && o.html) m.bindPopup(o.html).openPopup();
+          m.closePopup();
         },
         addKML: function(options) {
           var o = $.extend({},options);
