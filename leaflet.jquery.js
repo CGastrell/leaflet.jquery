@@ -37,7 +37,7 @@
         this._defaults = defaults;
         this._name = pluginName;
         this.Lmap = undefined;
-        this.popup = null;
+        this.popupGroup = null;
     }
 
     Leaflet.prototype = {
@@ -482,8 +482,8 @@
           var defaults = {lat:0,lng:0,html:null,title:null,icon:null};
           var o = $.extend({},options);
           var ll = new L.LatLng(o.lat,o.lng);
-          var m = new L.Marker(ll,o).addTo(this.Lmap);
-
+          if(this.popupGroup == null) this.popupGroup = new L.FeatureGroup().addTo(this.Lmap);
+          var m = new L.Marker(ll,o).addTo(this.popupGroup);
           // var popup = L.popup()
           //   .setLatLng(latlng)
           //   .setContent('<p>Hello world!<br />This is a nice popup.</p>')
@@ -499,6 +499,16 @@
             }
           }
           m.closePopup();
+        },
+        enableMarkerDragging: function() {
+          this.popupGroup.eachLayer(function(e){
+            e.dragging.enable();
+          });
+        },
+        disableMarkerDragging: function() {
+          this.popupGroup.eachLayer(function(e){
+            e.dragging.disable();
+          });
         },
         addKML: function(options) {
           var o = $.extend({},options);
@@ -575,5 +585,23 @@
         a.addKML(o);
       });
     };
+    $.fn[ 'enableMarkerDragging' ] = function()
+    {
+      return this.each(function(){
+        var $this = $(this);
+        var a = $this.data('plugin_leaflet');
+        if(!a) return;
+        a.enableMarkerDragging();
+      });
+    }
+    $.fn[ 'disableMarkerDragging' ] = function()
+    {
+      return this.each(function(){
+        var $this = $(this);
+        var a = $this.data('plugin_leaflet');
+        if(!a) return;
+        a.disableMarkerDragging();
+      });
+    }
 
 })( jQuery, window, document ); 
