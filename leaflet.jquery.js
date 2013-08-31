@@ -487,9 +487,11 @@
           var o = $.extend({},options);
           if(!o.hasOwnProperty('url') || typeof(o.url) !== "string") return;
           var _this = this;
-
-          var k = new L.KML(o.url, {async: true});
-          //track.on("loaded", function(e) { map.fitBounds(e.target.getBounds()); });
+          var proxyUrl = "http://crossproxy.aws.af.cm?u=" + o.url;
+          var k = new L.KML(proxyUrl, {async: true});
+          var _this = this;
+          this.Lmap.addLayer(k);
+          k.on("loaded", function(e) { console.log('loaded'); _this.Lmap.fitBounds(e.target.getBounds()); });
         }
     };
 
