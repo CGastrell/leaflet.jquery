@@ -37,6 +37,7 @@
         this._defaults = defaults;
         this._name = pluginName;
         this.Lmap = undefined;
+        this.popup = null;
     }
 
     Leaflet.prototype = {
@@ -482,6 +483,12 @@
           var o = $.extend({},options);
           var ll = new L.LatLng(o.lat,o.lng);
           var m = new L.Marker(ll,o).addTo(this.Lmap);
+
+          // var popup = L.popup()
+          //   .setLatLng(latlng)
+          //   .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+          //   .openOn(map);
+          // m.bindPopup(popupContent).openPopup();
         },
         addKML: function(options) {
           var o = $.extend({},options);
@@ -491,7 +498,7 @@
           var k = new L.KML(proxyUrl, {async: true});
           var _this = this;
           this.Lmap.addLayer(k);
-          k.on("loaded", function(e) { console.log('loaded'); _this.Lmap.fitBounds(e.target.getBounds()); });
+          //k.on("loaded", function(e) { console.log('loaded'); _this.Lmap.fitBounds(e.target.getBounds()); });
         }
     };
 
