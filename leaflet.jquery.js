@@ -479,10 +479,18 @@
         },
         addMarker: function (options) {
           var _this = this;
-          var defaults = {lat:0,lng:0,html:null,title:null,icon:null};
+          var defaults = {
+            lat:0,
+            lng:0,
+            html:null,
+            title:null,
+            icon:null
+          };
           var o = $.extend({},options);
           var ll = new L.LatLng(o.lat,o.lng);
-          if(this.popupGroup == null) this.popupGroup = new L.FeatureGroup().addTo(this.Lmap);
+          if(this.popupGroup == null) {
+            this.popupGroup = new L.FeatureGroup().addTo(this.Lmap);
+          }
           var m = new L.Marker(ll,o).addTo(this.popupGroup);
           // var popup = L.popup()
           //   .setLatLng(latlng)
