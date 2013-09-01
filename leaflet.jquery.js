@@ -419,7 +419,6 @@
           //Se dispara cuando termina de cargar o inmediatamente si ya está cargado
           _this.whenReady(function() {
             _this.$el.trigger('ready', _this.Lmap);
-            console.log("ready");
           });
           L.control.scale().addTo(_this.Lmap);
           _this.layerControl = L.control.layers({
@@ -456,7 +455,6 @@
           }
           $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + str, function(data) {
             _this.fitGeoLocateResult(data[0]);
-            console.log(data);
           }, _this);
 
         },
@@ -525,7 +523,6 @@
           var k = new L.KML(proxyUrl, {async: true});
           var _this = this;
           this.Lmap.addLayer(k);
-          //k.on("loaded", function(e) { console.log('loaded'); _this.Lmap.fitBounds(e.target.getBounds()); });
         }
     };
 
