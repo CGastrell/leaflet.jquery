@@ -501,9 +501,9 @@
             if(urlPattern.test(o.html))
             {
               var html = '<iframe src="'+o.html+'"></iframe>'
-              m.bindPopup(html).openPopup();
+              m.bindPopup(html);
             }else{
-              m.bindPopup(o.html).openPopup();
+              m.bindPopup(o.html);
             }
           }
           m.closePopup();
