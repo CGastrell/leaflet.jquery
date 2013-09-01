@@ -506,7 +506,6 @@
               m.bindPopup(o.html);
             }
           }
-          m.closePopup();
         },
         enableMarkerDragging: function() {
           this.popupGroup.eachLayer(function(e){
@@ -522,7 +521,7 @@
           var o = $.extend({},options);
           if(!o.hasOwnProperty('url') || typeof(o.url) !== "string") return;
           var _this = this;
-          var proxyUrl = "http://crossproxy.aws.af.cm?u=" + o.url;
+          var proxyUrl = "http://crossproxy.aws.af.cm?u=" + encodeURIComponent(o.url);
           var k = new L.KML(proxyUrl, {async: true});
           var _this = this;
           this.Lmap.addLayer(k);
